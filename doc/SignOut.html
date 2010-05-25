@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: SignOut</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/sixarm_ruby_sign_out_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/sixarm_ruby_sign_out.rb">lib/sixarm_ruby_sign_out.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000003">#sign_out</a></li>
+					
+					<li><a href="#M000006">#sign_out_attempt</a></li>
+					
+					<li><a href="#M000009">#sign_out_failure</a></li>
+					
+					<li><a href="#M000007">#sign_out_success</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="./sixarm_ruby_sign_out_gemspec.html">sixarm_ruby_sign_out.gemspec</a></li>
+				
+					<li class="file"><a href="./sixarm_ruby_sign_out_sha512_txt.html">sixarm_ruby_sign_out.sha512.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./SignOut.html">SignOut</a></li>
+				
+					<li><a href="./SignOutTest.html">SignOutTest</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">SignOut</h1>
+
+		<div id="description">
+			<h1>SixArm Ruby Gem: Sign Out</h1>
+<table>
+<tr><td valign="top">Author:</td><td>Joel Parker Henderson, joelparkerhenderson@gmail.com
+
+</td></tr>
+<tr><td valign="top">Copyright:</td><td>Copyright &#169; 2006-2010 Joel Parker Henderson
+
+</td></tr>
+<tr><td valign="top">License:</td><td>CreativeCommons License, Non-commercial Share Alike
+
+</td></tr>
+<tr><td valign="top">License:</td><td>LGPL, GNU Lesser General Public License
+
+</td></tr>
+</table>
+<p>
+Sign Out simple abstract framework.
+</p>
+<p>
+You can include this module in your application controller, then your
+controller can define any of these concrete methods.
+</p>
+<p>
+This provides one top-level method:
+</p>
+<pre>
+  sign_out(options=nil) =&gt; true for success, false for failure
+</pre>
+<p>
+The top level method will call mid-level methods that you will define in
+your own controller.
+</p>
+<p>
+<a href="SignOut.html#M000003">sign_out</a> calls:
+</p>
+<pre>
+  sign_out_attempt(options=nil), e.g. unset the current user
+  sign_out_success(options=nil), e.g. redirect to a goodbye page
+  sign_out_failure(options=nil), e.g. flash warning help message
+</pre>
+<h2>AuthLogic Example</h2>
+<p>
+AuthLogic provides this example:
+</p>
+<pre>
+  def destroy
+    current_user_session.destroy
+    redirect_to new_user_session_url
+  end
+</pre>
+<p>
+The same example written using Sign Out to provide better structure and
+security:
+</p>
+<pre>
+  def sign_out_attempt
+    current_user_session.destroy
+    current_user_session.frozen? or raise SecurityError, &quot;Problem with sign out ... &quot;, caller
+  end
+
+  def sign_out_success
+    redirect_to new_user_session_url
+  end
+
+  def sign_out_failure
+    # The AuthLogic example doesn't handle this case unfortunately;
+    # we should handle it because it indicates something is amiss.
+  end
+</pre>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="sign-out-method" class="method-detail ">
+				<a name="M000003"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sign_out</span><span
+						class="method-args">(options=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The <a href="SignOut.html#M000003">sign_out</a> method calls:
+</p>
+<ul>
+<li><a href="SignOut.html#M000006">sign_out_attempt</a>
+
+</li>
+<li><a href="SignOut.html#M000007">sign_out_success</a> (if <a
+href="SignOut.html#M000006">sign_out_attempt</a> returns true)
+
+</li>
+<li><a href="SignOut.html#M000009">sign_out_failure</a> (if <a
+href="SignOut.html#M000006">sign_out_attempt</a> returns false or raises a
+SecurityError)
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="sign-out-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/sixarm_ruby_sign_out.rb, line 61</span>
+61:  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_out</span>(<span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">nil</span>)
+62:   <span class="ruby-keyword kw">begin</span>
+63:    <span class="ruby-identifier">sign_out_attempt</span>(<span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">SecurityError</span>
+64:    <span class="ruby-identifier">sign_out_success</span>(<span class="ruby-identifier">options</span>)
+65:    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+66:   <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SecurityError</span>
+67:    <span class="ruby-identifier">sign_out_failure</span>(<span class="ruby-identifier">options</span>)
+68:    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+69:   <span class="ruby-keyword kw">end</span>
+70:  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="sign-out-attempt-method" class="method-detail ">
+				<a name="M000006"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sign_out_attempt</span><span
+						class="method-args">(options=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The <a href="SignOut.html#M000003">sign_out</a> method calls this first.
+</p>
+<p>
+You override this method to e.g.:
+</p>
+<ul>
+<li>prompt the user to save any of his open work
+
+</li>
+<li>clear the current user variable
+
+</li>
+<li>clear the current user id in the session
+
+</li>
+</ul>
+<p>
+If this method succeeds, then control goes to sign_out_success.
+</p>
+<p>
+If this method raises an error, then control goes to sign_out_failure.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="sign-out-attempt-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/sixarm_ruby_sign_out.rb, line 84</span>
+84:  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_out_attempt</span>(<span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">nil</span>)
+85:  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="sign-out-failure-method" class="method-detail ">
+				<a name="M000009"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sign_out_failure</span><span
+						class="method-args">(options=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The <a href="SignOut.html#M000003">sign_out</a> method calls this second,
+iff <a href="SignOut.html#M000006">sign_out_attempt</a> raises an
+exception.
+</p>
+<p>
+You override this method to e.g.:
+</p>
+<ul>
+<li>show the user a flash warning message saying &#8220;Problem&#8230;&#8220;
+
+</li>
+<li>redirect to a help page with a way to report the problem
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="sign-out-failure-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/sixarm_ruby_sign_out.rb, line 106</span>
+106:  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_out_failure</span>(<span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">nil</span>)
+107:  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="sign-out-success-method" class="method-detail ">
+				<a name="M000007"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sign_out_success</span><span
+						class="method-args">(options=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The <a href="SignOut.html#M000003">sign_out</a> method calls this second,
+iff <a href="SignOut.html#M000006">sign_out_attempt</a> succeeds.
+</p>
+<p>
+You override this method to e.g.:
+</p>
+<ul>
+<li>show the user a flash notice message saying &#8220;Goodbye&#8230;&#8220;
+
+</li>
+<li>redirect to the application home page
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="sign-out-success-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/sixarm_ruby_sign_out.rb, line 95</span>
+95:  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_out_success</span>(<span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">nil</span>)
+96:  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

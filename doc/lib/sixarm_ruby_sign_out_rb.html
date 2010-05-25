@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>File: sixarm_ruby_sign_out.rb [sixarm_ruby_sign_out]</title>
+
+	<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+</head>
+
+<body class="file file-popup">
+	<div id="metadata">
+		<dl>
+			<dt class="modified-date">Last Modified</dt>
+			<dd class="modified-date">2010-02-12 20:52:02 -0800</dd>
+
+			
+			<dt class="requires">Requires</dt>
+			<dd class="requires">
+				<ul>
+				
+				</ul>
+			</dd>
+			
+
+			
+		</dl>
+	</div>
+
+	<div id="documentation">
+		
+		<div class="description">
+			<h2>Description</h2>
+			<h1>SixArm Ruby Gem: Sign Out</h1>
+<table>
+<tr><td valign="top">Author:</td><td>Joel Parker Henderson, joelparkerhenderson@gmail.com
+
+</td></tr>
+<tr><td valign="top">Copyright:</td><td>Copyright &#169; 2006-2010 Joel Parker Henderson
+
+</td></tr>
+<tr><td valign="top">License:</td><td>CreativeCommons License, Non-commercial Share Alike
+
+</td></tr>
+<tr><td valign="top">License:</td><td>LGPL, GNU Lesser General Public License
+
+</td></tr>
+</table>
+<p>
+Sign Out simple abstract framework.
+</p>
+<p>
+You can include this module in your application controller, then your
+controller can define any of these concrete methods.
+</p>
+<p>
+This provides one top-level method:
+</p>
+<pre>
+  sign_out(options=nil) =&gt; true for success, false for failure
+</pre>
+<p>
+The top level method will call mid-level methods that you will define in
+your own controller.
+</p>
+<p>
+sign_out calls:
+</p>
+<pre>
+  sign_out_attempt(options=nil), e.g. unset the current user
+  sign_out_success(options=nil), e.g. redirect to a goodbye page
+  sign_out_failure(options=nil), e.g. flash warning help message
+</pre>
+<h2>AuthLogic Example</h2>
+<p>
+AuthLogic provides this example:
+</p>
+<pre>
+  def destroy
+    current_user_session.destroy
+    redirect_to new_user_session_url
+  end
+</pre>
+<p>
+The same example written using Sign Out to provide better structure and
+security:
+</p>
+<pre>
+  def sign_out_attempt
+    current_user_session.destroy
+    current_user_session.frozen? or raise SecurityError, &quot;Problem with sign out ... &quot;, caller
+  end
+
+  def sign_out_success
+    redirect_to new_user_session_url
+  end
+
+  def sign_out_failure
+    # The AuthLogic example doesn't handle this case unfortunately;
+    # we should handle it because it indicates something is amiss.
+  end
+</pre>
+
+		</div>
+		
+	</div>
+</body>
+</html>
+
