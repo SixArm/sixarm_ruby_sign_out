@@ -66,31 +66,27 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <h1>SixArm Ruby Gem: Sign Out</h1>
+    <h1>SixArm.com » Ruby » SignOut interface for typical Rails user sign out</h1>
 <table>
 <tr><td valign="top">Author</td><td><p>
 Joel Parker Henderson, joelparkerhenderson@gmail.com
 </p>
 </td></tr>
 <tr><td valign="top">Copyright</td><td><p>
-Copyright &#169; 2006-2010 Joel Parker Henderson
+Copyright &#169; 2006-2011 Joel Parker Henderson
 </p>
 </td></tr>
 <tr><td valign="top">License</td><td><p>
-CreativeCommons License, Non-commercial Share Alike
-</p>
-</td></tr>
-<tr><td valign="top">License</td><td><p>
-LGPL, GNU Lesser General Public License
+See LICENSE.txt file
 </p>
 </td></tr>
 </table>
 <p>
-Sign Out simple abstract framework.
+SignOut is a simple abstract framework for managing a user&#8217;s web
+session.
 </p>
 <p>
-You can include this module in your application controller, then your
-controller can define any of these concrete methods. 
+Include this in your application controller, then define concrete methods.
 </p>
 <p>
 This provides one top-level method:
@@ -316,6 +312,7 @@ SecurityError)
       <pre class="lines">
 
 
+60
 61
 62
 63
@@ -324,11 +321,10 @@ SecurityError)
 66
 67
 68
-69
-70</pre>
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id sign_out'>sign_out</span><span class='lparen'>(</span><span class='id options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
  <span class='kw'>begin</span>
@@ -392,11 +388,11 @@ If this method raises an error, then control goes to sign_out_failure.
       <pre class="lines">
 
 
-84
-85</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id sign_out_attempt'>sign_out_attempt</span><span class='lparen'>(</span><span class='id options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -443,11 +439,11 @@ redirect to a help page with a way to report the problem
       <pre class="lines">
 
 
-106
-107</pre>
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id sign_out_failure'>sign_out_failure</span><span class='lparen'>(</span><span class='id options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -493,11 +489,11 @@ redirect to the application home page
       <pre class="lines">
 
 
-95
-96</pre>
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id sign_out_success'>sign_out_success</span><span class='lparen'>(</span><span class='id options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -511,9 +507,9 @@ redirect to the application home page
 </div>
     
     <div id="footer">
-  Generated on Mon Dec 13 18:00:43 2010 by 
+  Generated on Sat Feb 12 16:22:35 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.6.3 (ruby-1.9.2).
+  0.6.4 (ruby-1.9.2).
 </div>
 
   </body>

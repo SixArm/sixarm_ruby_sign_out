@@ -1,7 +1,12 @@
 Gem::Specification.new do |s|
 
-  s.name              = "sixarm_ruby_sign_out"
-  s.summary           = "SixArm Ruby Gem: Abstract sign out for a typical web app user"
+  name                = "sixarm_ruby_sign_out"
+  top_files           = [".gemtest","Rakefile","README.rdoc","LICENSE.txt"]
+  lib_files           = ["lib/#{name}.rb"]
+  test_files          = ["test/#{name}_test.rb"]
+
+  s.name              = NAME
+  s.summary           = "SixArm.com » Ruby » Abstract sign out for a typical web app user"
   s.version           = "1.1.4"
   s.author            = "SixArm"
   s.email             = "sixarm@sixarm.com"
@@ -12,7 +17,8 @@ Gem::Specification.new do |s|
   s.platform          = Gem::Platform::RUBY
   s.require_path      = 'lib'
   s.has_rdoc          = true
-  s.files             = ['README.rdoc','LICENSE.txt','lib/sixarm_ruby_sign_out.rb']
-  s.test_files        = ['test/sixarm_ruby_sign_out_test.rb']
+
+  s.files             = top_files + lib_files + test_files
+  s.test_files        = test_files
 
 end
