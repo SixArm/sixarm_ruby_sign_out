@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 =begin rdoc
 
 = SixArm.com » Ruby » SignOut interface for typical Rails user sign out
@@ -32,7 +33,7 @@ AuthLogic provides this example:
   end
 
 The same example written using Sign Out to provide better structure and security:
-  
+
   def sign_out_attempt
     current_user_session.destroy
     current_user_session.frozen? or raise SecurityError, "Problem with sign out ... ", caller
@@ -74,7 +75,7 @@ module SignOut
  # You override this method to e.g.:
  # - prompt the user to save any of his open work
  # - clear the current user variable
- # - clear the current user id in the session 
+ # - clear the current user id in the session
  #
  # If this method succeeds, then control goes to sign_out_success.
  #
@@ -90,7 +91,7 @@ module SignOut
  # You override this method to e.g.:
  # - show the user a flash notice message saying "Goodbye..."
  # - redirect to the application home page
- 
+
  def sign_out_success(options=nil)
  end
 
@@ -101,7 +102,7 @@ module SignOut
  # You override this method to e.g.:
  # - show the user a flash warning message saying "Problem..."
  # - redirect to a help page with a way to report the problem
- 
+
  def sign_out_failure(options=nil)
  end
 
