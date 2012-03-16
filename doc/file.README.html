@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>SixArm.com » Ruby » <br> SignOut interface for typical Rails user sign out</h1>
+
+<ul>
+<li>Docs: <a href="http://sixarm.com/sixarm_ruby_sign_out/doc">http://sixarm.com/sixarm_ruby_sign_out/doc</a></li>
+<li>Repo: <a href="http://github.com/sixarm/sixarm_ruby_sign_out">http://github.com/sixarm/sixarm_ruby_sign_out</a></li>
+<li>Email: Joel Parker Henderson, <a href="mailto:joel@sixarm.com">joel@sixarm.com</a></li>
+</ul>
+
+<h2>Introduction</h2>
+
+<p>Sign Out simple abstract framework.</p>
+
+<p>You can include this module in your application controller,
+then your controller can define any of these concrete methods. </p>
+
+<p>For docs go to <a href="http://sixarm.com/sixarm_ruby_sign_out/doc">http://sixarm.com/sixarm_ruby_sign_out/doc</a></p>
+
+<p>Want to help? We&#39;re happy to get pull requests.</p>
+
+<h2>Quickstart</h2>
+
+<p>Install:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_sixarm_ruby_sign_out'>sixarm_ruby_sign_out</span>
+</code></pre>
+
+<p>Bundler:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sixarm_ruby_sign_out</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=1.1.4</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Require:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sixarm_ruby_sign_out</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<h2>Details</h2>
+
+<p>This provides one top-level method:</p>
+
+<pre class="code ruby"><code>sign_out(options=nil) =&gt; true for success, false for failure
+</code></pre>
+
+<p>The top level method will call mid-level methods
+that you will define in your own controller.</p>
+
+<p>sign_out calls:</p>
+
+<pre class="code ruby"><code>sign_out_attempt(options=nil), e.g. unset the current user
+sign_out_success(options=nil), e.g. redirect to a goodbye page
+sign_out_failure(options=nil), e.g. flash warning help message
+</code></pre>
+
+<h2>AuthLogic Example</h2>
+
+<p>AuthLogic provides this example:</p>
+
+<pre class="code ruby"><code><span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_current_user_session'>current_user_session</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+ <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_new_user_session_url'>new_user_session_url</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>The same example written using Sign Out to provide better structure and security:</p>
+
+<pre class="code ruby"><code><span class='kw'>def</span> <span class='id identifier rubyid_sign_out_attempt'>sign_out_attempt</span>
+  <span class='id identifier rubyid_current_user_session'>current_user_session</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_current_user_session'>current_user_session</span><span class='period'>.</span><span class='id identifier rubyid_frozen?'>frozen?</span> <span class='kw'>or</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>SecurityError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Problem with sign out ... </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span>
+<span class='kw'>end</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_success'>sign_out_success</span>
+  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_new_user_session_url'>new_user_session_url</span>
+<span class='kw'>end</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_failure'>sign_out_failure</span>
+  <span class='comment'># The AuthLogic example doesn't handle this case unfortunately;
+</span>  <span class='comment'># we should handle it because it indicates something is amiss.
+</span><span class='kw'>end</span>
+</code></pre>
+</div></div>
+    
+    <div id="footer">
+  Generated on Fri Mar 16 03:16:54 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

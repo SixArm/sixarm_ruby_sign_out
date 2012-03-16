@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: SignOut
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo; 
+    
+    
+    <span class="title">SignOut</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: SignOut
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/sixarm_ruby_sign_out.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<h1>SixArm.com » Ruby » SignOut interface for typical Rails user sign out</h1>
+<table class="rdoc-list"><tr><td class="rdoc-term"><p>Author</p></td>
+<td>
+<p>Joel Parker Henderson, joelparkerhenderson@gmail.com</p>
+</td></tr><tr><td class="rdoc-term"><p>Copyright</p></td>
+<td>
+<p>Copyright © 2006-2011 Joel Parker Henderson</p>
+</td></tr><tr><td class="rdoc-term"><p>License</p></td>
+<td>
+<p>See LICENSE.txt file</p>
+</td></tr></table>
+
+<p>SignOut is a simple abstract framework for managing a user’s web session.</p>
+
+<p>Include this in your application controller, then define concrete methods.</p>
+
+<p>This provides one top-level method:</p>
+
+<pre class="code ruby"><code>sign_out(options=nil) =&gt; true for success, false for failure</code></pre>
+
+<p>The top level method will call mid-level methods that you will define in
+your own controller.</p>
+
+<p>sign_out calls:</p>
+
+<pre class="code ruby"><code>sign_out_attempt(options=nil), e.g. unset the current user
+sign_out_success(options=nil), e.g. redirect to a goodbye page
+sign_out_failure(options=nil), e.g. flash warning help message</code></pre>
+
+<h2>AuthLogic Example</h2>
+
+<p>AuthLogic provides this example:</p>
+
+<pre class="code ruby"><code><span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_current_user_session'>current_user_session</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_new_user_session_url'>new_user_session_url</span>
+<span class='kw'>end</span></code></pre>
+
+<p>The same example written using Sign Out to provide better structure and
+security:</p>
+
+<pre class="code ruby"><code><span class='kw'>def</span> <span class='id identifier rubyid_sign_out_attempt'>sign_out_attempt</span>
+  <span class='id identifier rubyid_current_user_session'>current_user_session</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_current_user_session'>current_user_session</span><span class='period'>.</span><span class='id identifier rubyid_frozen?'>frozen?</span> <span class='kw'>or</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>SecurityError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Problem with sign out ... </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_caller'>caller</span>
+<span class='kw'>end</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_success'>sign_out_success</span>
+  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_new_user_session_url'>new_user_session_url</span>
+<span class='kw'>end</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_failure'>sign_out_failure</span>
+  <span class='comment'># The AuthLogic example doesn't handle this case unfortunately;
+</span>  <span class='comment'># we should handle it because it indicates something is amiss.
+</span><span class='kw'>end</span></code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sign_out-instance_method" title="#sign_out (instance method)">- (Object) <strong>sign_out</strong>(options = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The sign_out method calls:</p>
+<ul><li>
+<p>sign_out_attempt</p>
+</li><li>
+<p>sign_out_success (if sign_out_attempt returns true)</p>
+</li><li>
+<p>sign_out_failure (if sign_out_attempt returns false or raises a
+SecurityError).</p>
+</li></ul>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sign_out_attempt-instance_method" title="#sign_out_attempt (instance method)">- (Object) <strong>sign_out_attempt</strong>(options = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The sign_out method calls this first.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sign_out_failure-instance_method" title="#sign_out_failure (instance method)">- (Object) <strong>sign_out_failure</strong>(options = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The sign_out method calls this second, iff sign_out_attempt raises an
+exception.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sign_out_success-instance_method" title="#sign_out_success (instance method)">- (Object) <strong>sign_out_success</strong>(options = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The sign_out method calls this second, iff sign_out_attempt succeeds.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="sign_out-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sign_out</strong>(options = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The sign_out method calls:</p>
+<ul><li>
+<p>sign_out_attempt</p>
+</li><li>
+<p>sign_out_success (if sign_out_attempt returns true)</p>
+</li><li>
+<p>sign_out_failure (if sign_out_attempt returns false or raises a
+SecurityError)</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out'>sign_out</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+ <span class='kw'>begin</span>
+  <span class='id identifier rubyid_sign_out_attempt'>sign_out_attempt</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>or</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>SecurityError</span>
+  <span class='id identifier rubyid_sign_out_success'>sign_out_success</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>true</span>
+ <span class='kw'>rescue</span> <span class='const'>SecurityError</span>
+  <span class='id identifier rubyid_sign_out_failure'>sign_out_failure</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span>
+ <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sign_out_attempt-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sign_out_attempt</strong>(options = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The sign_out method calls this first.</p>
+
+<p>You override this method to e.g.:</p>
+<ul><li>
+<p>prompt the user to save any of his open work</p>
+</li><li>
+<p>clear the current user variable</p>
+</li><li>
+<p>clear the current user id in the session</p>
+</li></ul>
+
+<p>If this method succeeds, then control goes to sign_out_success.</p>
+
+<p>If this method raises an error, then control goes to sign_out_failure.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 84</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_attempt'>sign_out_attempt</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sign_out_failure-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sign_out_failure</strong>(options = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The sign_out method calls this second, iff sign_out_attempt raises an
+exception.</p>
+
+<p>You override this method to e.g.:</p>
+<ul><li>
+<p>show the user a flash warning message saying "Problem..."</p>
+</li><li>
+<p>redirect to a help page with a way to report the problem</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+106
+107</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 106</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_failure'>sign_out_failure</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sign_out_success-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sign_out_success</strong>(options = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The sign_out method calls this second, iff sign_out_attempt succeeds.</p>
+
+<p>You override this method to e.g.:</p>
+<ul><li>
+<p>show the user a flash notice message saying "Goodbye..."</p>
+</li><li>
+<p>redirect to the application home page</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sixarm_ruby_sign_out.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign_out_success'>sign_out_success</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Mar 16 03:16:54 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
