@@ -1,6 +1,7 @@
 # SixArm.com » Ruby » <br> SignOut interface for typical Rails user sign out
 
-* Docs: <http://sixarm.com/sixarm_ruby_sign_out/doc>
+* Doc: <http://sixarm.com/sixarm_ruby_sign_out/doc>
+* Gem: <http://rubygems.org/gems/sixarm_ruby_sign_out>
 * Repo: <http://github.com/sixarm/sixarm_ruby_sign_out>
 * Email: Joel Parker Henderson, <joel@sixarm.com>
 
