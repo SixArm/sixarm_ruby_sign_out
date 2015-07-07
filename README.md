@@ -91,10 +91,6 @@ The same example written using Sign Out to provide better structure and security
 ## Changes
 
 * 2012-03-14 1.1.4 Update docs, tests
-* 2010-10-02 1.1.4 Update for Ruby 1.9## License
-
-
-## License
 
 You may choose any of these open source licenses:
 
