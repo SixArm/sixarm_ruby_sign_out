@@ -4,7 +4,7 @@ require "simplecov"
 SimpleCov.start
 require "sixarm_ruby_sign_out"
 
-class SignOutTest < Test::Unit::TestCase
+class SignOutTest < Minitest::Test
 
  include SignOut
 
