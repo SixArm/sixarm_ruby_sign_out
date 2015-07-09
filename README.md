@@ -1,4 +1,4 @@
-SixArm.com » Ruby » <h1>SignOut interface for Rails apps</h1>
+# SixArm.com » Ruby » <br> SignOut interface for Rails apps
 
 [![Code Climate](https://codeclimate.com/github/SixArm/sixarm_ruby_sign_out.png)](https://codeclimate.com/github/SixArm/sixarm_ruby_sign_out)
 [![Build Status](https://travis-ci.org/SixArm/sixarm_ruby_sign_out.png)](https://travis-ci.org/SixArm/sixarm_ruby_sign_out)
