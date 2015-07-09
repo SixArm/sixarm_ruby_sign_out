@@ -1,4 +1,7 @@
-# Ruby » <br> SignOut interface for typical Rails user sign out
+# <font size="-2">SixArm.com » Ruby »</font><br> SignOut interface for typical Rails user sign out
+
+[![Code Climate](https://codeclimate.com/github/SixArm/sixarm_ruby_sign_out.png)](https://codeclimate.com/github/SixArm/sixarm_ruby_sign_out)
+[![Build Status](https://travis-ci.org/SixArm/sixarm_ruby_sign_out.png)](https://travis-ci.org/SixArm/sixarm_ruby_sign_out)
 
 * Doc: <http://sixarm.com/sixarm_ruby_sign_out/doc>
 * Gem: <http://rubygems.org/gems/sixarm_ruby_sign_out>
@@ -11,7 +14,7 @@
 Sign Out simple abstract framework.
 
 You can include this module in your application controller,
-then your controller can define any of these concrete methods. 
+then your controller can define any of these concrete methods.
 
 For docs go to <http://sixarm.com/sixarm_ruby_sign_out/doc>
 
@@ -26,7 +29,7 @@ Install:
 
 Bundler:
 
-    gem "sixarm_ruby_sign_out", "~>1.1.4"
+    gem "sixarm_ruby_sign_out", ">=1.1.5", "<2"
 
 Require:
 
@@ -72,7 +75,7 @@ AuthLogic provides this example:
     end
 
 The same example written using Sign Out to provide better structure and security:
-  
+
     def sign_out_attempt
       current_user_session.destroy
       current_user_session.frozen? or raise SecurityError, "Problem with sign out ... ", caller
