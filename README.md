@@ -1,4 +1,4 @@
-# SixArm.com » Ruby » <br> SignOut interface for Rails apps
+# SixArm.com » Ruby » <br> SignOut abstract interface for apps
 
 [![Code Climate](https://codeclimate.com/github/SixArm/sixarm_ruby_sign_out.png)](https://codeclimate.com/github/SixArm/sixarm_ruby_sign_out)
 [![Build Status](https://travis-ci.org/SixArm/sixarm_ruby_sign_out.png)](https://travis-ci.org/SixArm/sixarm_ruby_sign_out)
@@ -11,9 +11,9 @@
 
 ## Introduction
 
-Sign Out simple abstract framework.
+SignOut is a simple abstract interface for apps.
 
-You can include this module in your application controller,
+You can include this module in a Rails application controller,
 then your controller can define any of these concrete methods.
 
 For docs go to <http://sixarm.com/sixarm_ruby_sign_out/doc>
